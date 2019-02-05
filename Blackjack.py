@@ -65,19 +65,65 @@ class Hand:
         self.cards.append(card)
         self.value += values[card.rank]
 
-    def adjust_for_ace(self):
-        pass
+        # track aces
+        if card.rank == 'Ace':
+            self.aces += 1
 
+    def adjust_for_ace(self):
+
+        # when you first get an ace it will count as 11
+        # this will check if the self.value is over 21 and I have an ace
+        # will be changed to a 1
+        # the self.aces = 0 is being used as a boolean
+        while self.value > 21 and self.aces:
+            self.value -= 10
+            self.aces -= 1
+
+# TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
 
 test_deck = Deck()
 test_deck.shuffle()
 # print(test_deck)
 
 # PLAYER
-test_player = Hand()
+# test_player = Hand()
 
 # Deal 1 card from the deck CARD(suit,rank)
-pulled_card = test_deck.deal()
-print(pulled_card)
-test_player.add_card(pulled_card)
-print(test_player.value)
+# pulled_card = test_deck.deal()
+# print(pulled_card)
+# test_player.add_card(pulled_card)
+# print(test_player.value)
+
+# TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
+# ALL OF THE ABOVE TESTING COULD BE WRITTEN
+# test_player.add_card(test_deck.deal())
+# print(test_player.value)
+
+
+class Chips():
+
+    def __init__(self, total = 100):
+        self.total = total
+        self.bet = 0
+
+    def win_bet(self):
+        self.total += self.bet
+
+    def lose_best(self):
+        self.total -= self.bet
+
+
+def take_bet(chips):
+
+    while True:
+
+        try:
+            chips.bet = int(input('How many chips would you like to bet?'))
+        except ValueError:
+            print('Sorry please provide an integer')
+        else:
+            if chips.bet > chips.total:
+                print('Sorry you have insufficient chips! You have: {}'.format(chips.total))
+            else:
+                break
+
