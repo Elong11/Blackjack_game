@@ -4,9 +4,10 @@ import random
 # suits tuples
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 
-# tuples
+#
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
 
+# values is very important as you can lookup the rank and see its value and add the sum of the persons hand
 # dictionary for values rank of card to get the value
 values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10,
           'Queen': 10, 'King': 10, 'Ace': 11}
@@ -46,8 +47,37 @@ class Deck:
         single_card = self.deck.pop()
         return single_card
 
+
+# test_deck = Deck()
+# test_deck.shuffle()
+# print(test_deck)
+
+
+# The HAND CLASS is where these can be used
+class Hand:
+    def __init__(self):
+        self.cards = []
+        self.value = 0
+        self.aces = 0
+
+    def add_card(self,card):
+        # card passed in from Deck.deal() -> 1 card
+        self.cards.append(card)
+        self.value += values[card.rank]
+
+    def adjust_for_ace(self):
+        pass
+
+
 test_deck = Deck()
 test_deck.shuffle()
-print(test_deck)
+# print(test_deck)
 
+# PLAYER
+test_player = Hand()
 
+# Deal 1 card from the deck CARD(suit,rank)
+pulled_card = test_deck.deal()
+print(pulled_card)
+test_player.add_card(pulled_card)
+print(test_player.value)
